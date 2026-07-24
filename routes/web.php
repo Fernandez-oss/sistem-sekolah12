@@ -9,6 +9,7 @@ use App\Http\Controllers\SchoolClass\StoreController;
 use App\Http\Controllers\SchoolClass\UpdateController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\MajorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -53,15 +54,33 @@ Route::name('classes.')->prefix('classes')->group(function () {
 
     Route::get('/', IndexController::class)->name('index');
 
-     Route::get('/{id}', ShowController::class)->name('show');
+    Route::get('/{id}', ShowController::class)->name('show');
 
-     Route::get('/create', CreateController::class)->name('create');
+    Route::get('/create', CreateController::class)->name('create');
 
-     Route::get('/{id}/edit', EditController::class)->name('edit');
+    Route::get('/{id}/edit', EditController::class)->name('edit');
 
-     Route::post('/store', StoreController::class)->name('store');
+    Route::post('/store', StoreController::class)->name('store');
 
-     Route::put('/{id}', UpdateController::class)->name('update');
+    Route::put('/{id}', UpdateController::class)->name('update');
 
-     Route::delete('/{id}', DestroyController::class)->name('destroy');
+    Route::delete('/{id}', DestroyController::class)->name('destroy');
+});
+
+
+Route::name('majors.')->prefix('majors')->group(function () {
+
+    Route::get('/', [MajorController::class, 'index'])->name('index');
+
+    Route::get('/create', [MajorController::class, 'create'])->name('create');
+    
+    Route::post('/store', [MajorController::class, 'store'])->name('store');
+    
+    Route::get('/{id}', [MajorController::class, 'show'])->name('show');
+    
+    Route::get('/{id}/edit', [MajorController::class, 'edit'])->name('edit');
+    
+    Route::put('/{id}', [MajorController::class, 'update'])->name('update');
+    
+    Route::delete('/{id}', [MajorController::class, 'destroy'])->name('destroy');
 });
