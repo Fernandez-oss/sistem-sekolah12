@@ -20,9 +20,11 @@ Route::name('students.')->prefix('students')->group(function () {
 
     Route::get('/', [StudentController::class, 'index'])->name('index');
 
-    Route::get('/{id}', [StudentController::class, 'show'])->name('show');
+    
+    Route::get('/{id}', [StudentController::class, 'show'])->name('show')->whereNumber('id');
 
     Route::get('/create', [StudentController::class, 'create'])->name('create');
+
 
     Route::get('/{id}/edit', [StudentController::class, 'edit'])->name('edit');
 
@@ -73,14 +75,14 @@ Route::name('majors.')->prefix('majors')->group(function () {
     Route::get('/', [MajorController::class, 'index'])->name('index');
 
     Route::get('/create', [MajorController::class, 'create'])->name('create');
-    
+
     Route::post('/store', [MajorController::class, 'store'])->name('store');
-    
+
     Route::get('/{id}', [MajorController::class, 'show'])->name('show');
-    
+
     Route::get('/{id}/edit', [MajorController::class, 'edit'])->name('edit');
-    
+
     Route::put('/{id}', [MajorController::class, 'update'])->name('update');
-    
+
     Route::delete('/{id}', [MajorController::class, 'destroy'])->name('destroy');
 });
