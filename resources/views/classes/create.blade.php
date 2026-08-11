@@ -32,10 +32,15 @@
             class="mb-1.5 block text-xs font-semibold uppercase tracking-[0.1em] text-[#16213A]">Jurusan</label>
         <select id="major_id" name="major_id"
             class="w-full border border-[#D9D6CD] bg-[#FCFBF8] px-3.5 py-2.5 text-sm focus:border-[#A16207] focus:bg-white focus:outline-none">
+
             <option value="">Pilih jurusan</option>
-            <option value="1">AKL</option>
-            <option value="2">TKJ</option>
-            <option value="3">BiD</option>
+
+            @foreach ($majors as $major)
+            <option value="{{ $major['id'] }}">
+                {{ $major['code'] }}
+            </option>
+            @endforeach
+
         </select>
     </div>
 
@@ -45,13 +50,16 @@
         <select id="teacher_id" name="teacher_id"
             class="w-full border border-[#D9D6CD] bg-[#FCFBF8] px-3.5 py-2.5 text-sm focus:border-[#A16207] focus:bg-white focus:outline-none">
             <option value="">Pilih wali kelas</option>
-            <option value="1">Budi Santoso</option>
-            <option value="2">Siti Aminah</option>
+            @foreach ($teachers as $teacher)
+            <option value="{{ $teacher['id'] }}">
+                {{ $teacher['name'] }}
+            </option>
+            @endforeach
         </select>
-    </div>  
+    </div>
 
     <div class="flex justify-end gap-4 border-t border-[#EFEDE6] pt-6">
-        <a href="#" class="px-4 py-2.5 text-sm font-medium text-slate-500 hover:text-[#16213A]">Batal</a>
+        <a href="{{ route('classes.index') }}" class="px-4 py-2.5 text-sm font-medium text-slate-500 hover:text-[#16213A]">Batal</a>
         <button type="submit"
             class="bg-[#16213A] px-6 py-2.5 text-sm font-medium text-white transition hover:bg-[#26324f]">Simpan
             ke Buku Induk</button>
