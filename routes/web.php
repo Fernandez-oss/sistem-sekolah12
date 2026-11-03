@@ -24,7 +24,7 @@ Route::get('/register', [AuthController::class, 'RegisterView'])->name('register
 Route::post('/register', [AuthController::class, 'RegisterPost'])->name('register-post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::name('students.')->prefix('students')->group(function () {
+Route::name('students.')->middleware('auth', 'role:student,teacher')->prefix('students')->group(function () {
 
     Route::get('/', [StudentController::class, 'index'])->name('index');
     
@@ -41,7 +41,7 @@ Route::name('students.')->prefix('students')->group(function () {
     Route::delete('/{student}', [StudentController::class, 'destroy'])->name('destroy');
 });
 
-Route::name('teachers.')->prefix('teachers')->group(function () {
+Route::name('teachers.')->middleware('auth', 'role:teacher')->prefix('teachers')->group(function () {
 
     Route::get('/', [TeacherController::class, 'index'])->name('index');
 
@@ -58,7 +58,7 @@ Route::name('teachers.')->prefix('teachers')->group(function () {
     Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('destroy');
 });
 
-Route::name('classes.')->prefix('classes')->group(function () {
+Route::name('classes.')->middleware('auth', 'role:teacher')->prefix('classes')->group(function () {
 
     Route::get('/', IndexController::class)->name('index');
 
@@ -76,19 +76,4 @@ Route::name('classes.')->prefix('classes')->group(function () {
 });
 
 
-Route::name('majors.')->prefix('majors')->group(function () {
-
-    Route::get('/', [MajorController::class, 'index'])->name('index');
-
-    Route::post('/store', [MajorController::class, 'store'])->name('store');
-    
-    Route::get('/create', [MajorController::class, 'create'])->name('create');
-
-    Route::get('/{id}', [MajorController::class, 'show'])->name('show');
-
-    Route::get('/{id}/edit', [MajorController::class, 'edit'])->name('edit');
-
-    Route::put('/{id}', [MajorController::class, 'update'])->name('update');
-
-    Route::delete('/{id}', [MajorController::class, 'destroy'])->name('destroy');
-}); 
+Route::resource('majors',MajorController::class)->middleware('auth', 'role:teacher');
