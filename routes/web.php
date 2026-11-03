@@ -83,4 +83,4 @@ Route::name('majors.')->prefix('majors')->group(function () {
     Route::put('/{id}', [MajorController::class, 'update'])->name('update');
 
     Route::delete('/{id}', [MajorController::class, 'destroy'])->name('destroy');
-});
+}); 
