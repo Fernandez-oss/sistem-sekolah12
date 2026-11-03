@@ -11,10 +11,18 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\MajorController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Authentication
+Route::get('/login', [AuthController::class, 'LoginView'])->name('login-view');
+Route::post('/login', [AuthController::class, 'LoginPost'])->name('login-post');
+Route::get('/register', [AuthController::class, 'RegisterView'])->name('register-view');
+Route::post('/register', [AuthController::class, 'RegisterPost'])->name('register-post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::name('students.')->prefix('students')->group(function () {
 
